@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel França da Silva — Dados &amp; Engenharia de Dados</title>
+<meta name="description" content="Portfólio de Gabriel França da Silva: projetos de análise, ciência e engenharia de dados em Python, SQL, PySpark, Airflow, Docker e BI.">
+<meta property="og:title" content="Gabriel França da Silva — Dados &amp; Engenharia de Dados">
+<meta property="og:description" content="Estudante de Ciência e Tecnologia migrando de análise de dados para engenharia de dados. Veja os projetos.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --surface:#F6F6F4;
+    --text:#14151A;
+    --text-dim:#5C5F66;
+    --text-faint:#9598A0;
+    --border:#E5E5E3;
+    --accent:#2451CC;
+    --accent-soft:rgba(36,81,204,.08);
+    --radius:8px;
+    --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+    --maxw:1000px;
+    --header-h:64px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;
+  }
+  h1,h2,h3,h4{ font-family:var(--sans); font-weight:700; margin:0; line-height:1.2; letter-spacing:-.01em; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  button{ font:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .skip-link{
+    position:absolute; left:-999px; top:0;
+    background:var(--text); color:#fff; padding:10px 16px;
+    font-family:var(--mono); font-size:.85rem; z-index:200;
+  }
+  .skip-link:focus{ left:0; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:3px; border-radius:3px;
+  }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:100; height:var(--header-h);
+    background:rgba(255,255,255,.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  header .wrap{ height:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .logo{ font-weight:600; font-size:.95rem; }
+  nav.primary-nav{ display:flex; align-items:center; gap:28px; }
+  .nav-links{ display:flex; align-items:center; gap:24px; }
+  .nav-links a{
+    font-size:.88rem; color:var(--text-dim);
+    padding-bottom:3px; border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--text); border-color:var(--text); }
+  .nav-icons{ display:flex; align-items:center; gap:16px; }
+  .nav-icons a{ font-size:.82rem; color:var(--text-dim); transition:color .15s ease; }
+  .nav-icons a:hover{ color:var(--accent); }
+  .menu-toggle{
+    display:none; background:transparent; border:1px solid var(--border); border-radius:6px;
+    width:36px; height:36px; color:var(--text); cursor:pointer; align-items:center; justify-content:center;
+  }
+  .menu-toggle svg{ width:16px; height:16px; }
+
+  /* ---------- Hero ---------- */
+  #hero{ padding:72px 0 60px; scroll-margin-top:var(--header-h); }
+  .eyebrow{
+    font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--text-faint); margin-bottom:14px;
+  }
+  .hero-title{ font-size:clamp(2rem, 4.6vw, 3.2rem); }
+  .hero-role{ margin-top:12px; font-size:1.05rem; color:var(--text-dim); }
+  .hero-role .arrow{ color:var(--accent); padding:0 6px; }
+  .hero-lede{ margin-top:18px; max-width:580px; color:var(--text-dim); font-size:1rem; line-height:1.75; }
+  .cta-row{ margin-top:28px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:6px;
+    font-size:.88rem; font-weight:500; cursor:pointer; border:1px solid transparent; transition:all .15s ease;
+  }
+  .btn-primary{ background:var(--text); color:#fff; }
+  .btn-primary:hover{ background:#000; }
+  .btn-outline{ background:transparent; color:var(--text); border-color:var(--border); }
+  .btn-outline:hover{ border-color:var(--text); }
+  .link-arrow{ font-size:.9rem; color:var(--text-dim); border-bottom:1px solid var(--border); padding-bottom:2px; transition:all .15s ease; }
+  .link-arrow:hover{ color:var(--accent); border-color:var(--accent); }
+
+  .hero-meta{
+    margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    font-family:var(--mono); font-size:.8rem; color:var(--text-faint); letter-spacing:.01em;
+  }
+  .hero-meta .dot{ color:var(--accent); }
+
+  /* ---------- Sections ---------- */
+  .section{ padding:72px 0; border-top:1px solid var(--border); scroll-margin-top:var(--header-h); }
+  .section h2{ font-size:clamp(1.4rem, 2.6vw, 1.8rem); margin-bottom:26px; }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:56px; }
+  .about-bio p{ color:var(--text-dim); font-size:1rem; line-height:1.85; }
+  .about-bio p + p{ margin-top:16px; }
+  .lang-note{ margin-top:20px; font-family:var(--mono); font-size:.78rem; color:var(--text-faint); }
+
+  .skill-group + .skill-group{ margin-top:22px; }
+  .skill-group-label{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-faint); margin-bottom:10px;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:.8rem; color:var(--text-dim);
+    border:1px solid var(--border); border-radius:4px; padding:5px 10px;
+  }
+
+  /* ---------- Featured project ---------- */
+  .feature-box{ border:1px solid var(--border); border-radius:var(--radius); padding:36px; }
+  .badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.7rem;
+    letter-spacing:.06em; text-transform:uppercase; padding:5px 10px; border-radius:4px;
+    border:1px solid var(--text-faint); color:var(--text-dim);
+  }
+  .feature-box h3{ font-size:1.4rem; margin-top:16px; }
+  .feature-box > p.desc{ margin-top:12px; max-width:660px; color:var(--text-dim); font-size:.98rem; line-height:1.75; }
+  .feature-media{ margin-top:28px; border:1px solid var(--border); border-radius:6px; overflow:hidden; aspect-ratio:21/9; background:var(--surface); }
+  .feature-media img{ width:100%; height:100%; object-fit:cover; }
+
+  .flow{ display:flex; flex-wrap:wrap; gap:0; margin-top:32px; }
+  .flow-step{ flex:1 1 160px; padding:0 20px; border-left:1px solid var(--border); }
+  .flow-step:first-child{ border-left:none; padding-left:0; }
+  .flow-index{ display:block; font-family:var(--mono); font-weight:500; font-size:.76rem; color:var(--accent); margin-bottom:8px; }
+  .flow-step h4{ font-size:.92rem; margin-bottom:6px; font-weight:600; }
+  .flow-step p{ font-size:.82rem; color:var(--text-dim); line-height:1.55; }
+
+  .feature-box .chips{ margin-top:26px; }
+  .feature-links{ margin-top:26px; display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
+  .hint{ font-family:var(--mono); font-size:.74rem; color:var(--text-faint); }
+
+  /* ---------- Projects grid ---------- */
+  .filter-row{ display:flex; flex-wrap:wrap; gap:22px; margin-bottom:22px; border-bottom:1px solid var(--border); }
+  .filter-pill{
+    background:none; border:none; padding:0 0 12px; cursor:pointer;
+    font-size:.88rem; color:var(--text-faint); border-bottom:2px solid transparent; margin-bottom:-1px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .filter-pill:hover{ color:var(--text); }
+  .filter-pill.is-active{ color:var(--text); border-color:var(--text); font-weight:500; }
+  .count-line{ font-family:var(--mono); font-size:.76rem; color:var(--text-faint); margin-bottom:24px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; }
+  .card{
+    display:flex; flex-direction:column; overflow:hidden;
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    transition:border-color .15s ease;
+  }
+  .card:hover{ border-color:var(--text-faint); }
+  .card-media{ width:100%; aspect-ratio:16/10; background:var(--surface); overflow:hidden; }
+  .card-media img{ width:100%; height:100%; object-fit:cover; }
+  .card-body{ display:flex; flex-direction:column; gap:10px; padding:20px; flex:1; }
+  .card-cat{ font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); }
+  .card h3{ font-size:1rem; font-weight:600; }
+  .card p.desc{ font-size:.86rem; color:var(--text-dim); line-height:1.6; flex-grow:1; }
+  .card .chips{ margin-top:2px; }
+  .card .chip{ font-size:.72rem; padding:4px 8px; }
+  .card-link{
+    margin-top:6px; font-size:.84rem; color:var(--accent);
+    display:inline-flex; align-items:center; gap:6px; width:fit-content;
+    border-bottom:1px solid transparent;
+  }
+  .card-link:hover{ border-color:var(--accent); }
+  .card-status{
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--text-faint); border:1px solid var(--border); border-radius:4px; padding:3px 8px; width:fit-content;
+  }
+  .empty-state{
+    padding:40px; text-align:center; color:var(--text-faint); font-family:var(--mono); font-size:.85rem;
+    border:1px dashed var(--border); border-radius:var(--radius);
+  }
+
+  /* ---------- Certifications ---------- */
+  .cert-list{ border-top:1px solid var(--border); }
+  .cert-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:16px 0; border-bottom:1px solid var(--border);
+  }
+  .cert-main{ display:flex; flex-direction:column; gap:3px; }
+  .cert-title{ font-size:.94rem; font-weight:500; }
+  .cert-hours{ color:var(--text-faint); font-weight:400; }
+  .cert-issuer{ color:var(--text-dim); font-size:.84rem; }
+  .cert-date{ font-family:var(--mono); font-size:.76rem; color:var(--text-faint); white-space:nowrap; }
+
+  /* ---------- Education ---------- */
+  .timeline{ position:relative; padding-left:26px; max-width:640px; }
+  .timeline::before{ content:""; position:absolute; left:4px; top:6px; bottom:6px; width:1px; background:var(--border); }
+  .timeline-item{ position:relative; padding-bottom:30px; }
+  .timeline-item:last-child{ padding-bottom:0; }
+  .timeline-item::before{
+    content:""; position:absolute; left:-26px; top:4px; width:9px; height:9px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--text-faint);
+  }
+  .timeline-item.current::before{ border-color:var(--accent); background:var(--accent); }
+  .timeline-years{ font-family:var(--mono); font-size:.76rem; color:var(--text-faint); }
+  .timeline-item h3{ font-size:1.02rem; margin-top:6px; font-weight:600; }
+  .timeline-item p{ margin-top:4px; color:var(--text-dim); font-size:.9rem; }
+
+  /* ---------- Contact ---------- */
+  #contato .wrap{ text-align:center; }
+  #contato h2{ margin-bottom:14px; }
+  #contato p.lede{ max-width:520px; margin:0 auto; color:var(--text-dim); font-size:1rem; line-height:1.75; }
+  #contato .cta-row{ justify-content:center; margin-top:28px; }
+
+  footer.site-footer{ border-top:1px solid var(--border); padding:22px 0; }
+  footer.site-footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:.72rem; color:var(--text-faint);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(8px); transition:opacity .45s ease, transform .45s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .about-grid{ grid-template-columns:1fr; gap:32px; }
+    .nav-links, .nav-icons{ display:none; }
+    header.open .nav-links{
+      display:flex; flex-direction:column; align-items:flex-start; gap:16px;
+      position:absolute; top:var(--header-h); left:0; right:0; background:var(--bg);
+      border-bottom:1px solid var(--border); padding:20px 24px;
+    }
+    header.open .nav-icons{
+      display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+      position:absolute; top:calc(var(--header-h) + 220px); left:0; right:0;
+      background:var(--bg); padding:0 24px 20px; border-bottom:1px solid var(--border);
+    }
+    .menu-toggle{ display:inline-flex; }
+    .flow-step{ flex:1 1 100%; border-left:none; border-top:1px solid var(--border); padding:20px 0 0; margin-top:20px; }
+    .flow-step:first-child{ border-top:none; margin-top:0; padding-top:0; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+<header id="site-header">
+  <div class="wrap">
+    <a class="logo" href="#hero">Gabriel França da Silva</a>
+    <nav class="primary-nav" aria-label="Navegação principal">
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#destaque">Destaque</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#certificacoes">Certificações</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="https://github.com/TayschreN" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/gabrielfranca123/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:gabriel.fsilva26609@gmail.com">Email</a>
+        <a href="curriculo-gabriel-franca-silva.pdf" target="_blank" rel="noopener">Currículo (PDF)</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section id="hero">
+    <div class="wrap">
+      <p class="eyebrow">Portfólio de dados</p>
+      <h1 class="hero-title">Gabriel França da Silva</h1>
+      <p class="hero-role">Análise de Dados <span class="arrow">→</span> Engenharia de Dados</p>
+      <p class="hero-lede">Estudante de Ciência e Tecnologia na UFABC, migrando de dashboards e análise exploratória para pipelines de dados completos — com Python, PySpark, Airflow e Docker. Baseado em Santo André, Brasil.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projetos">Ver projetos</a>
+        <a class="btn btn-outline" href="curriculo-gabriel-franca-silva.pdf" target="_blank" rel="noopener">Ver meu currículo (PDF)</a>
+        <a class="link-arrow" href="#contato">Falar comigo →</a>
+      </div>
+      <p class="hero-meta">
+        <span id="statProjects">—</span>+ projetos <span class="dot">·</span>
+        Python <span class="dot">·</span> SQL <span class="dot">·</span> PySpark <span class="dot">·</span> Docker <span class="dot">·</span>
+        aberto a estágio
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE ================= -->
+  <section class="section reveal" id="sobre">
+    <div class="wrap">
+      <p class="eyebrow">01 · Sobre</p>
+      <h2>Sobre mim</h2>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>Sou estudante de Bacharelado em Ciência e Tecnologia na UFABC (2024–2028), com formação técnica em Desenvolvimento de Sistemas pela ETEC Rio Grande da Serra. Construí minha base em análise de dados com SQL, Excel, Python (Pandas) e ferramentas de BI — limpando, explorando e visualizando dados para apoiar decisões de negócio.</p>
+          <p>Hoje estou expandindo esse trabalho para engenharia de dados: uso Spark, Airflow e Docker para transformar análises pontuais em pipelines automatizados e escaláveis, buscando unir isso a machine learning — como no projeto em destaque abaixo.</p>
+          <p class="lang-note">Idiomas: inglês avançado · espanhol intermediário</p>
+        </div>
+        <div class="about-skills">
+          <div class="skill-group">
+            <div class="skill-group-label">Linguagens &amp; Dados</div>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Pandas</span><span class="chip">PySpark</span><span class="chip">DAX</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Engenharia de Dados</div>
+            <div class="chips">
+              <span class="chip">Apache Spark</span><span class="chip">Airflow</span><span class="chip">Docker</span><span class="chip">DBT</span><span class="chip">DuckDB</span><span class="chip">Databricks</span><span class="chip">AWS</span><span class="chip">Azure</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">BI &amp; Visualização</div>
+            <div class="chips">
+              <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Looker</span><span class="chip">Excel</span><span class="chip">Google Sheets</span><span class="chip">Streamlit</span><span class="chip">Dash</span><span class="chip">Matplotlib</span><span class="chip">Seaborn</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Ferramentas</div>
+            <div class="chips">
+              <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Jupyter</span><span class="chip">Colab</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJETO EM DESTAQUE ================= -->
+  <section class="section reveal" id="destaque">
+    <div class="wrap">
+      <p class="eyebrow">02 · Projeto em destaque</p>
+      <div class="feature-box">
+        <span class="badge">Em desenvolvimento</span>
+        <h3>F1 Data Pipeline &amp; Performance Predictor</h3>
+        <p class="desc">Pipeline de dados ponta a ponta que ingere telemetria e resultados históricos de Fórmula 1, processa em larga escala e treina um modelo de machine learning para prever posições de chegada — tudo orquestrado e containerizado.</p>
+        <div id="featureMediaSlot"></div>
+
+        <div class="flow">
+          <div class="flow-step">
+            <span class="flow-index">01</span>
+            <h4>Ingestão</h4>
+            <p>FastF1 + Ergast API — telemetria e resultados históricos de F1.</p>
+          </div>
+          <div class="flow-step">
+            <span class="flow-index">02</span>
+            <h4>Processamento</h4>
+            <p>PySpark — limpeza, transformação e agregação em larga escala.</p>
+          </div>
+          <div class="flow-step">
+            <span class="flow-index">03</span>
+            <h4>Armazenamento</h4>
+            <p>DuckDB — camada analítica local, otimizada para consultas rápidas.</p>
+          </div>
+          <div class="flow-step">
+            <span class="flow-index">04</span>
+            <h4>Modelagem</h4>
+            <p>Scikit-learn / XGBoost — previsão da posição final de corrida.</p>
+          </div>
+          <div class="flow-step">
+            <span class="flow-index">05</span>
+            <h4>Orquestração</h4>
+            <p>Airflow + Docker Compose — pipeline automatizado e containerizado.</p>
+          </div>
+        </div>
+
+        <div class="chips">
+          <span class="chip">FastF1</span>
+          <span class="chip">Ergast API</span>
+          <span class="chip">PySpark</span>
+          <span class="chip">DuckDB</span>
+          <span class="chip">scikit-learn</span>
+          <span class="chip">XGBoost</span>
+          <span class="chip">Airflow</span>
+          <span class="chip">Docker Compose</span>
+        </div>
+
+        <div class="feature-links">
+          <a class="btn btn-outline" href="https://github.com/TayschreN" target="_blank" rel="noopener">Ver perfil no GitHub</a>
+          <span class="hint">Repositório dedicado deste projeto será publicado em breve.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJETOS ================= -->
+  <section class="section reveal" id="projetos">
+    <div class="wrap">
+      <p class="eyebrow">03 · Projetos</p>
+      <h2>Todos os projetos</h2>
+      <div class="filter-row" id="filterRow"></div>
+      <p class="count-line" id="countLine"></p>
+      <div class="grid" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= CERTIFICAÇÕES ================= -->
+  <section class="section reveal" id="certificacoes">
+    <div class="wrap">
+      <p class="eyebrow">04 · Certificações</p>
+      <h2>Certificações e cursos</h2>
+      <ul class="cert-list" id="certList"></ul>
+    </div>
+  </section>
+
+  <!-- ================= FORMAÇÃO ================= -->
+  <section class="section reveal" id="formacao">
+    <div class="wrap">
+      <p class="eyebrow">05 · Formação</p>
+      <h2>Formação acadêmica</h2>
+      <div class="timeline">
+        <div class="timeline-item current">
+          <div class="timeline-years">2024 – 2028 · em andamento</div>
+          <h3>Bacharelado em Ciência e Tecnologia</h3>
+          <p>UFABC — Universidade Federal do ABC</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-years">2021 – 2023</div>
+          <h3>Desenvolvimento de Sistemas</h3>
+          <p>ETEC Rio Grande da Serra</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTATO ================= -->
+  <section class="section" id="contato">
+    <div class="wrap">
+      <p class="eyebrow" style="justify-content:center">06 · Contato</p>
+      <h2>Vamos conversar</h2>
+      <p class="lede">Estou em busca de oportunidades de estágio em Dados, Engenharia de Dados ou Análise de Dados. Se meu perfil combina com sua equipe, entre em contato.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:gabriel.fsilva26609@gmail.com">Enviar email</a>
+        <a class="btn btn-outline" href="curriculo-gabriel-franca-silva.pdf" target="_blank" rel="noopener">Currículo (PDF)</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/gabrielfranca123/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-outline" href="https://github.com/TayschreN" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year"></span> Gabriel França da Silva</span>
+    <span>Feito com HTML, CSS e JS — sem frameworks.</span>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   COMO ADICIONAR UM NOVO PROJETO
+   ----------------------------------------------------------------
+   1. Copie o objeto-modelo abaixo (entre INÍCIO MODELO e FIM MODELO).
+   2. Cole dentro do array PROJECTS, em qualquer posição da lista.
+   3. Preencha os campos com as informações do novo projeto.
+   4. Salve o arquivo e atualize a página no navegador — pronto.
+
+   Campos:
+   - id       : identificador único em texto, ex: 'projeto-29'
+   - title    : título do projeto
+   - category : uma das chaves de CATEGORIES logo abaixo
+                ('engenharia' | 'ml' | 'sql' | 'bi')
+   - tools    : lista de tecnologias usadas (aparecem como tags)
+   - desc     : descrição curta, 1-2 frases
+   - image    : URL de uma imagem de miniatura/capa do projeto
+                (ex: 'images/projeto.png', pode ser um caminho local
+                dentro de uma pasta "images" ou um link da web),
+                ou null se não tiver imagem. Se featured for true,
+                essa imagem também aparece na seção "Projeto em Destaque".
+   - link     : URL do repositório no GitHub (ideal), ou de onde o
+                projeto pode ser visto
+   - featured : true para também destacar na seção "Projeto em
+                Destaque" no topo (use com moderação, normalmente false)
+   - status   : opcional. Ex: 'Em desenvolvimento' — aparece como
+                selo no card. Use null se o projeto está concluído.
+
+   INÍCIO MODELO
+   {
+     id: 'projeto-29',
+     title: 'Nome do novo projeto',
+     category: 'engenharia',
+     tools: ['Ferramenta 1', 'Ferramenta 2'],
+     desc: 'Descrição curta do que o projeto faz e qual problema resolve.',
+     image: null,
+     link: 'https://github.com/TayschreN/novo-projeto',
+     featured: false,
+     status: null
+   }
+   FIM MODELO
+   ================================================================ */
+
+const CATEGORIES = {
+  engenharia: 'Engenharia de Dados',
+  ml: 'Python, EDA & ML',
+  sql: 'SQL',
+  bi: 'BI & Dashboards'
+};
+
+const PROJECTS = [
+  {
+    id: 'f1-pipeline',
+    title: 'F1 Data Pipeline & Performance Predictor',
+    category: 'engenharia',
+    tools: ['FastF1', 'Ergast API', 'PySpark', 'DuckDB', 'Airflow', 'Docker', 'scikit-learn', 'XGBoost'],
+    desc: 'Pipeline ponta a ponta que ingere telemetria e resultados históricos de F1, processa com PySpark, armazena em DuckDB e treina um modelo para prever posições de corrida — orquestrado com Airflow e containerizado com Docker.',
+    image: null,
+    link: 'https://github.com/TayschreN',
+    featured: false,
+    status: 'null'
+  },
+
+  {
+    id: 'ufc-dashboard',
+    title: 'Análise UFC – Dashboard',
+    category: 'bi',
+    tools: ['Power BI'],
+    desc: 'Dashboard de análise de lutas do UFC, explorando estatísticas históricas, desempenho de lutadores e padrões de finalização.',
+    image: 'https://raw.githubusercontent.com/TayschreN/ufc-dashboard/refs/heads/main/img/Tela1.jpg',
+    link: 'https://github.com/TayschreN/ufc-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'vasco-dashboard',
+    title: 'Análise Vasco da Gama – Dashboard',
+    category: 'bi',
+    tools: ['Power BI'],
+    desc: 'Dashboard de desempenho do Vasco da Gama no Campeonato Brasileiro (2003–2024): eficiência ofensiva/defensiva e evolução histórica.',
+    image: 'https://raw.githubusercontent.com/TayschreN/vasco-dashboard/main/img/Tela1.jpg',
+    link: 'https://github.com/TayschreN/vasco-dashboard',
+    featured: false,
+    status: null
+  },
+   {
+     id: 'steamlens-streamlit',
+     title: 'SteamLens – Dashboard',
+     category: 'ml',
+     tools: ['Streamlit', 'Python', 'Pandas'],
+     desc: 'Aplicação Streamlit para análise e visualização de dados do Steam, permitindo explorar informações sobre jogos e suas estats de popularidade, vendas e avaliações.',
+     image: 'https://raw.githubusercontent.com/TayschreN/steamlens-analytics/main/imagens/tela3.png',
+     link: 'https://github.com/TayschreN/steamlens-analytics',
+     featured: false,
+     status: null
+   },
+  {
+    id: 'brasileirao-bi-dashboard',
+    title: 'Análise Brasileirão – Dashboard',
+    category: 'bi',
+    tools: ['Power BI'],
+    desc: 'Dashboard do Campeonato Brasileiro com foco em desempenho das equipes, padrões de jogo e tendências ao longo das temporadas.',
+    image: 'https://raw.githubusercontent.com/TayschreN/brasileirao-dashboard/main/img/Tela1.jpg',
+    link: 'https://github.com/TayschreN/brasileirao-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'audio-produtos-dashboard',
+    title: 'Performance Produtos de Áudio – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Dashboard de vendas para uma empresa fictícia de áudio, com foco em receita, segmentação de clientes e análise de descontos.',
+    image: 'https://raw.githubusercontent.com/TayschreN/audio-store-dashboard/main/Dashboard.jpg',
+    link: 'https://github.com/TayschreN/audio-store-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'gestao-orcamentos-dashboard',
+    title: 'Gestão de Projetos e Orçamentos – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Painel executivo para análise de orçamento, capital e distribuição de projetos por departamento.',
+    image: 'https://raw.githubusercontent.com/TayschreN/sectors-budget-dashboard/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/sectors-budget-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'bike-shop-dashboard',
+    title: 'Performance Loja de Bicicletas – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Dashboard de lucro, receita e sazonalidade de vendas para uma loja de bicicletas, com perfil dos ciclistas.',
+    image: 'https://raw.githubusercontent.com/TayschreN/bike-store-dashboard/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/bike-store-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'florida-varejo-dashboard',
+    title: 'Lojas de Varejo na Flórida – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Análise de como clima, localização e perfil de clientes impactam as vendas diárias em quatro lojas de varejo na Flórida.',
+    image: 'https://raw.githubusercontent.com/TayschreN/miami-stores-analysis/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/miami-stores-analysis',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'vendas-lucro-dashboard',
+    title: 'Performance de Vendas e Lucro – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Dashboard analítico de vendas e rentabilidade entre 2023 e 2025, com foco em insights estratégicos para decisões de negócio.',
+    image: 'https://raw.githubusercontent.com/TayschreN/sales-performance-dashboard/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/sales-performance-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'pesquisa-profissionais-dashboard',
+    title: 'Pesquisa com Profissionais de Dados – Dashboard',
+    category: 'bi',
+    tools: ['Power BI'],
+    desc: 'Dashboard baseado em pesquisa com 504 profissionais de dados, sobre carreira, salários, linguagens e satisfação profissional.',
+    image: 'https://raw.githubusercontent.com/TayschreN/profdata-survey-dashboard/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/profdata-survey-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'brinquedos-mexico-dashboard',
+    title: 'Rede de Lojas de Brinquedos no México – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'BI para uma rede de lojas de brinquedos no México, com métricas-chave de negócio para acompanhamento da liderança.',
+    image: 'https://raw.githubusercontent.com/TayschreN/toy-store-mexico-bi/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/toy-store-mexico-bi',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'hoteis-dashboard',
+    title: 'Performance de Rede de Hotéis – Dashboard',
+    category: 'bi',
+    tools: ['Power BI', 'SQL'],
+    desc: 'Dashboard de desempenho de uma rede de hotéis: receita, descontos e perfil temporal de reservas.',
+    image: 'https://raw.githubusercontent.com/TayschreN/hotel-revenue-dashboard/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/hotel-revenue-dashboard',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'emissoes-eua-dashboard',
+    title: 'Emissões de Poluentes nos Estados Unidos – Dashboard',
+    category: 'bi',
+    tools: ['Databricks', 'SQL'],
+    desc: 'Análise exploratória de emissões de poluentes nos EUA no Databricks, com foco em padrões geográficos e emissão per capita.',
+    image: 'https://raw.githubusercontent.com/TayschreN/eua-emissions-databricks/main/Dashboard.png',
+    link: 'https://github.com/TayschreN/eua-emissions-databricks',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'shopping-segmentacao',
+    title: 'Segmentação de Clientes de Shopping – Análise Exploratória',
+    category: 'ml',
+    tools: ['Pandas', 'Python', 'Machine Learning'],
+    desc: 'Segmentação de clientes de um shopping via aprendizado não supervisionado (clustering), a partir de comportamento de compra e renda.',
+    image: 'https://raw.githubusercontent.com/TayschreN/shopping-clients-pandas/main/distribuicao_genero.png',
+    link: 'https://github.com/TayschreN/shopping-clients-pandas',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'lista-clientes-limpeza',
+    title: 'Lista de Clientes – Limpeza de Dados',
+    category: 'ml',
+    tools: ['Pandas', 'Python', 'Jupyter'],
+    desc: 'Limpeza e padronização de uma base de contatos de clientes com Python e Pandas, preparando os dados para uso em campanhas.',
+    image: 'https://raw.githubusercontent.com/TayschreN/customer-calllist-pandas/main/tabela.jpg',
+    link: 'https://github.com/TayschreN/customer-calllist-pandas',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'fred-economico',
+    title: 'Dados Econômicos com FRED – Análise Exploratória',
+    category: 'ml',
+    tools: ['Pandas', 'Python', 'API'],
+    desc: 'Análise macroeconômica via API do FRED, relacionando o mercado financeiro e indicadores do mercado de trabalho dos EUA.',
+    image: 'https://raw.githubusercontent.com/TayschreN/economic-data-analysis/main/10estados_maior_taxa_desemprego.png',
+    link: 'https://github.com/TayschreN/economic-data-analysis',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'demissoes-eda-sql',
+    title: 'Dados de Demissões 2020–2023 – Análise Exploratória',
+    category: 'sql',
+    tools: ['SQL'],
+    desc: 'EDA em SQL sobre demissões globais entre 2020 e 2023, com foco no impacto da pandemia no mercado de trabalho.',
+    image: 'https://raw.githubusercontent.com/TayschreN/sql-exploracao-de-dados/main/query.png',
+    link: 'https://github.com/TayschreN/sql-exploracao-de-dados',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'nashville-limpeza',
+    title: 'Habitações em Nashville – Limpeza de Dados',
+    category: 'sql',
+    tools: ['SQL'],
+    desc: 'Limpeza e padronização do dataset Nashville Housing em T-SQL, transformando dados brutos em uma base estruturada e confiável.',
+    image: 'https://raw.githubusercontent.com/TayschreN/nashville-housing-limpeza/main/query.png',
+    link: 'https://github.com/TayschreN/nashville-housing-limpeza',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'demissoes-limpeza-sql',
+    title: 'Demissões 2020–2023 – Limpeza de Dados',
+    category: 'sql',
+    tools: ['SQL'],
+    desc: 'Limpeza e padronização do dataset Layoffs 2022 (Kaggle) em MySQL, aplicando boas práticas de BI e engenharia de dados.',
+    image: 'https://raw.githubusercontent.com/TayschreN/sql-limpeza-de-dados/main/query.png',
+    link: 'https://github.com/TayschreN/sql-limpeza-de-dados',
+    featured: false,
+    status: null
+  }
+];
+
+/* ================================================================
+   COMO ADICIONAR UMA NOVA CERTIFICAÇÃO
+   ----------------------------------------------------------------
+   1. Copie o objeto-modelo abaixo.
+   2. Cole dentro do array CERTIFICATIONS, em qualquer posição
+      (a lista não é reordenada automaticamente — coloque na
+      ordem que preferir, ex: mais recente primeiro).
+   3. Preencha os campos e salve o arquivo.
+
+   Campos:
+   - title  : nome do curso/certificação
+   - issuer : instituição ou instrutor
+   - hours  : carga horária, ex: '24h' — use null se não tiver
+   - date   : mês/ano de emissão, ex: 'Mar 2026'
+
+   INÍCIO MODELO
+   { title: 'Nome do curso', issuer: 'Instituição', hours: '10h', date: 'Mar 2026' }
+   FIM MODELO
+   ================================================================ */
+
+const CERTIFICATIONS = [
+  { title: 'The Complete Python Bootcamp', issuer: 'Udemy', hours: '22h', date: 'Fev 2026' },
+  { title: 'Microsoft Power BI Para Business Intelligence e Data Science', issuer: 'Data Science Academy', hours: '72h', date: 'Fev 2026' },
+  { title: 'Fundamentos de Engenharia de Dados', issuer: 'Data Science Academy', hours: '24h', date: 'Jan 2026' },
+  { title: 'The Complete SQL Bootcamp', issuer: 'Udemy', hours: '9h', date: 'Jan 2026' },
+  { title: 'Data Analytics Bootcamp', issuer: 'Alexander Freberg (Alex The Analyst)', hours: '23h', date: 'Dez 2025' },
+  { title: "CS50's Introduction to Databases with SQL", issuer: 'Harvard University (CS50)', hours: '11h', date: 'Dez 2025' },
+  { title: 'SQL Basic Certificate', issuer: 'HackerRank', hours: null, date: 'Dez 2025' },
+  { title: 'Python for Data Analytics', issuer: 'Luke Barousse', hours: '11h', date: 'Dez 2025' },
+  { title: 'SQL Intermediate for Data Analytics', issuer: 'Luke Barousse', hours: '6h', date: 'Nov 2025' },
+  { title: 'Excel for Data Analytics', issuer: 'Luke Barousse', hours: '11h', date: 'Nov 2025' },
+  { title: 'Power BI for Data Analytics', issuer: 'Luke Barousse', hours: '8h', date: 'Nov 2025' },
+  { title: 'Data Analysis with Python', issuer: 'freeCodeCamp', hours: '9h', date: 'Nov 2025' },
+  { title: "CS50's Introduction to Programming with Python", issuer: 'Harvard University (CS50)', hours: '16h', date: 'Nov 2025' }
+];
+
+/* ---------------- Rendering ---------------- */
+
+function cardHTML(p){
+  const catLabel = CATEGORIES[p.category] || p.category;
+  const statusTag = p.status ? `<span class="card-status">${p.status}</span>` : '';
+  const media = p.image ? `<div class="card-media"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>` : '';
+  const chips = p.tools.map(t => `<span class="chip">${t}</span>`).join('');
+  return `
+    <article class="card">
+      ${media}
+      <div class="card-body">
+        ${statusTag}
+        <span class="card-cat">${catLabel}</span>
+        <h3>${p.title}</h3>
+        <p class="desc">${p.desc}</p>
+        <div class="chips">${chips}</div>
+        <a class="card-link" href="${p.link}" target="_blank" rel="noopener">Ver projeto ↗</a>
+      </div>
+    </article>
+  `;
+}
+
+function certHTML(c){
+  const hours = c.hours ? ` <span class="cert-hours">· ${c.hours}</span>` : '';
+  return `
+    <li class="cert-row">
+      <div class="cert-main">
+        <span class="cert-title">${c.title}${hours}</span>
+        <span class="cert-issuer">${c.issuer}</span>
+      </div>
+      <span class="cert-date">${c.date}</span>
+    </li>
+  `;
+}
+
+function renderFilters(){
+  const row = document.getElementById('filterRow');
+  const keys = ['all', ...Object.keys(CATEGORIES)];
+  row.innerHTML = keys.map(k => {
+    const label = k === 'all' ? 'Todos' : CATEGORIES[k];
+    const active = k === 'all' ? 'is-active' : '';
+    return `<button class="filter-pill ${active}" data-filter="${k}">${label}</button>`;
+  }).join('');
+
+  row.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-pill');
+    if(!btn) return;
+    row.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderGrid(btn.dataset.filter);
+  });
+}
+
+function renderGrid(filter){
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('countLine');
+  const list = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.category === filter);
+
+  grid.innerHTML = list.length
+    ? list.map(cardHTML).join('')
+    : `<div class="empty-state">Nenhum projeto nesta categoria ainda.</div>`;
+
+  count.textContent = `Mostrando ${list.length} de ${PROJECTS.length} projetos`;
+}
+
+function renderCertifications(){
+  document.getElementById('certList').innerHTML = CERTIFICATIONS.map(certHTML).join('');
+}
+
+function renderFeaturedMedia(){
+  const slot = document.getElementById('featureMediaSlot');
+  const featured = PROJECTS.find(p => p.featured);
+  if(featured && featured.image){
+    slot.innerHTML = `<div class="feature-media"><img src="${featured.image}" alt="${featured.title}" loading="lazy"></div>`;
+  }
+}
+
+function init(){
+  document.getElementById('statProjects').textContent = PROJECTS.length;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  renderFilters();
+  renderGrid('all');
+  renderCertifications();
+  renderFeaturedMedia();
+
+  const toggle = document.getElementById('menuToggle');
+  const header = document.getElementById('site-header');
+  toggle.addEventListener('click', () => {
+    const isOpen = header.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      header.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

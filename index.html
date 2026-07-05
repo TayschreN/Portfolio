@@ -29,7 +29,7 @@
   }
 
   *,*::before,*::after{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; font-size:17px; }
   body{
     margin:0;
     background:var(--bg);
@@ -37,7 +37,7 @@
     font-family:var(--sans);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    font-size:16px;
+    font-size:1rem;
   }
   h1,h2,h3,h4{ font-family:var(--sans); font-weight:700; margin:0; line-height:1.2; letter-spacing:-.01em; }
   p{ margin:0; }
@@ -120,8 +120,6 @@
   .about-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:56px; }
   .about-bio p{ color:var(--text-dim); font-size:1rem; line-height:1.85; }
   .about-bio p + p{ margin-top:16px; }
-  .lang-note{ margin-top:20px; font-family:var(--mono); font-size:.78rem; color:var(--text-faint); }
-
   .skill-group + .skill-group{ margin-top:22px; }
   .skill-group-label{
     font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
@@ -132,29 +130,6 @@
     font-size:.8rem; color:var(--text-dim);
     border:1px solid var(--border); border-radius:4px; padding:5px 10px;
   }
-
-  /* ---------- Featured project ---------- */
-  .feature-box{ border:1px solid var(--border); border-radius:var(--radius); padding:36px; }
-  .badge{
-    display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.7rem;
-    letter-spacing:.06em; text-transform:uppercase; padding:5px 10px; border-radius:4px;
-    border:1px solid var(--text-faint); color:var(--text-dim);
-  }
-  .feature-box h3{ font-size:1.4rem; margin-top:16px; }
-  .feature-box > p.desc{ margin-top:12px; max-width:660px; color:var(--text-dim); font-size:.98rem; line-height:1.75; }
-  .feature-media{ margin-top:28px; border:1px solid var(--border); border-radius:6px; overflow:hidden; aspect-ratio:21/9; background:var(--surface); }
-  .feature-media img{ width:100%; height:100%; object-fit:cover; }
-
-  .flow{ display:flex; flex-wrap:wrap; gap:0; margin-top:32px; }
-  .flow-step{ flex:1 1 160px; padding:0 20px; border-left:1px solid var(--border); }
-  .flow-step:first-child{ border-left:none; padding-left:0; }
-  .flow-index{ display:block; font-family:var(--mono); font-weight:500; font-size:.76rem; color:var(--accent); margin-bottom:8px; }
-  .flow-step h4{ font-size:.92rem; margin-bottom:6px; font-weight:600; }
-  .flow-step p{ font-size:.82rem; color:var(--text-dim); line-height:1.55; }
-
-  .feature-box .chips{ margin-top:26px; }
-  .feature-links{ margin-top:26px; display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
-  .hint{ font-family:var(--mono); font-size:.74rem; color:var(--text-faint); }
 
   /* ---------- Projects grid ---------- */
   .filter-row{ display:flex; flex-wrap:wrap; gap:22px; margin-bottom:22px; border-bottom:1px solid var(--border); }
@@ -182,12 +157,15 @@
   .card p.desc{ font-size:.86rem; color:var(--text-dim); line-height:1.6; flex-grow:1; }
   .card .chips{ margin-top:2px; }
   .card .chip{ font-size:.72rem; padding:4px 8px; }
+  .card-links{ display:flex; flex-wrap:wrap; gap:14px; margin-top:6px; }
   .card-link{
-    margin-top:6px; font-size:.84rem; color:var(--accent);
+    font-size:.84rem; color:var(--accent);
     display:inline-flex; align-items:center; gap:6px; width:fit-content;
     border-bottom:1px solid transparent;
   }
   .card-link:hover{ border-color:var(--accent); }
+  .card-link-demo{ color:var(--text-dim); }
+  .card-link-demo:hover{ color:var(--accent); border-color:var(--accent); }
   .card-status{
     font-family:var(--mono); font-size:.66rem; letter-spacing:.05em; text-transform:uppercase;
     color:var(--text-faint); border:1px solid var(--border); border-radius:4px; padding:3px 8px; width:fit-content;
@@ -222,6 +200,7 @@
   .timeline-years{ font-family:var(--mono); font-size:.76rem; color:var(--text-faint); }
   .timeline-item h3{ font-size:1.02rem; margin-top:6px; font-weight:600; }
   .timeline-item p{ margin-top:4px; color:var(--text-dim); font-size:.9rem; }
+  .timeline-courses{ font-family:var(--mono); font-size:.78rem !important; color:var(--text-faint) !important; }
 
   /* ---------- Contact ---------- */
   #contato .wrap{ text-align:center; }
@@ -254,8 +233,6 @@
       background:var(--bg); padding:0 24px 20px; border-bottom:1px solid var(--border);
     }
     .menu-toggle{ display:inline-flex; }
-    .flow-step{ flex:1 1 100%; border-left:none; border-top:1px solid var(--border); padding:20px 0 0; margin-top:20px; }
-    .flow-step:first-child{ border-top:none; margin-top:0; padding-top:0; }
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -272,10 +249,9 @@
     <nav class="primary-nav" aria-label="Navegação principal">
       <ul class="nav-links">
         <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#destaque">Destaque</a></li>
         <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#certificacoes">Certificações</a></li>
         <li><a href="#formacao">Formação</a></li>
+        <li><a href="#certificacoes">Certificações</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
       <div class="nav-icons">
@@ -321,20 +297,19 @@
       <div class="about-grid">
         <div class="about-bio">
           <p>Sou estudante de Bacharelado em Ciência e Tecnologia na UFABC (2024–2028), com formação técnica em Desenvolvimento de Sistemas pela ETEC Rio Grande da Serra. Construí minha base em análise de dados com SQL, Excel, Python (Pandas) e ferramentas de BI — limpando, explorando e visualizando dados para apoiar decisões de negócio.</p>
-          <p>Hoje estou expandindo esse trabalho para engenharia de dados: uso Spark, Airflow e Docker para transformar análises pontuais em pipelines automatizados e escaláveis, buscando unir isso a machine learning — como no projeto em destaque abaixo.</p>
-          <p class="lang-note">Idiomas: inglês avançado · espanhol intermediário</p>
+          <p>Hoje estou expandindo esse trabalho para engenharia de dados: uso Spark, Airflow e Docker para transformar análises pontuais em pipelines automatizados e escaláveis, buscando unir isso a machine learning em projetos práticos.</p>
         </div>
         <div class="about-skills">
           <div class="skill-group">
             <div class="skill-group-label">Linguagens &amp; Dados</div>
             <div class="chips">
-              <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Pandas</span><span class="chip">PySpark</span><span class="chip">DAX</span>
+              <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Pandas</span><span class="chip">PySpark</span><span class="chip">DAX</span><span class="chip">MongoDB</span><span class="chip">PostgreSQL</span>
             </div>
           </div>
           <div class="skill-group">
             <div class="skill-group-label">Engenharia de Dados</div>
             <div class="chips">
-              <span class="chip">Apache Spark</span><span class="chip">Airflow</span><span class="chip">Docker</span><span class="chip">DBT</span><span class="chip">DuckDB</span><span class="chip">Databricks</span><span class="chip">AWS</span><span class="chip">Azure</span>
+              <span class="chip">Apache Spark</span><span class="chip">Airflow</span><span class="chip">Docker</span><span class="chip">DBT</span><span class="chip">DuckDB</span><span class="chip">Databricks</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Cloud</span>
             </div>
           </div>
           <div class="skill-group">
@@ -344,68 +319,23 @@
             </div>
           </div>
           <div class="skill-group">
-            <div class="skill-group-label">Ferramentas</div>
+            <div class="skill-group-label">Front-end &amp; Design</div>
             <div class="chips">
-              <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Jupyter</span><span class="chip">Colab</span>
+              <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Figma</span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PROJETO EM DESTAQUE ================= -->
-  <section class="section reveal" id="destaque">
-    <div class="wrap">
-      <p class="eyebrow">02 · Projeto em destaque</p>
-      <div class="feature-box">
-        <span class="badge">Em desenvolvimento</span>
-        <h3>F1 Data Pipeline &amp; Performance Predictor</h3>
-        <p class="desc">Pipeline de dados ponta a ponta que ingere telemetria e resultados históricos de Fórmula 1, processa em larga escala e treina um modelo de machine learning para prever posições de chegada — tudo orquestrado e containerizado.</p>
-        <div id="featureMediaSlot"></div>
-
-        <div class="flow">
-          <div class="flow-step">
-            <span class="flow-index">01</span>
-            <h4>Ingestão</h4>
-            <p>FastF1 + Ergast API — telemetria e resultados históricos de F1.</p>
+          <div class="skill-group">
+            <div class="skill-group-label">Ferramentas &amp; Metodologias</div>
+            <div class="chips">
+              <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Jupyter</span><span class="chip">Colab</span><span class="chip">Métodos Ágeis</span>
+            </div>
           </div>
-          <div class="flow-step">
-            <span class="flow-index">02</span>
-            <h4>Processamento</h4>
-            <p>PySpark — limpeza, transformação e agregação em larga escala.</p>
+          <div class="skill-group">
+            <div class="skill-group-label">Idiomas</div>
+            <div class="chips">
+              <span class="chip">Português (nativo)</span><span class="chip">Inglês (avançado)</span><span class="chip">Espanhol (intermediário)</span><span class="chip">Italiano (iniciante)</span>
+            </div>
           </div>
-          <div class="flow-step">
-            <span class="flow-index">03</span>
-            <h4>Armazenamento</h4>
-            <p>DuckDB — camada analítica local, otimizada para consultas rápidas.</p>
-          </div>
-          <div class="flow-step">
-            <span class="flow-index">04</span>
-            <h4>Modelagem</h4>
-            <p>Scikit-learn / XGBoost — previsão da posição final de corrida.</p>
-          </div>
-          <div class="flow-step">
-            <span class="flow-index">05</span>
-            <h4>Orquestração</h4>
-            <p>Airflow + Docker Compose — pipeline automatizado e containerizado.</p>
-          </div>
-        </div>
-
-        <div class="chips">
-          <span class="chip">FastF1</span>
-          <span class="chip">Ergast API</span>
-          <span class="chip">PySpark</span>
-          <span class="chip">DuckDB</span>
-          <span class="chip">scikit-learn</span>
-          <span class="chip">XGBoost</span>
-          <span class="chip">Airflow</span>
-          <span class="chip">Docker Compose</span>
-        </div>
-
-        <div class="feature-links">
-          <a class="btn btn-outline" href="https://github.com/TayschreN" target="_blank" rel="noopener">Ver perfil no GitHub</a>
-          <span class="hint">Repositório dedicado deste projeto será publicado em breve.</span>
         </div>
       </div>
     </div>
@@ -414,11 +344,33 @@
   <!-- ================= PROJETOS ================= -->
   <section class="section reveal" id="projetos">
     <div class="wrap">
-      <p class="eyebrow">03 · Projetos</p>
+      <p class="eyebrow">02 · Projetos</p>
       <h2>Todos os projetos</h2>
       <div class="filter-row" id="filterRow"></div>
       <p class="count-line" id="countLine"></p>
       <div class="grid" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= FORMAÇÃO ================= -->
+  <section class="section reveal" id="formacao">
+    <div class="wrap">
+      <p class="eyebrow">03 · Formação</p>
+      <h2>Formação acadêmica</h2>
+      <div class="timeline">
+        <div class="timeline-item current">
+          <div class="timeline-years">2024 – 2028 · em andamento</div>
+          <h3>Bacharelado em Ciência e Tecnologia</h3>
+          <p>UFABC — Universidade Federal do ABC</p>
+          <p class="timeline-courses">Disciplinas: Ciência Computacional, Processamento da Informação, Natureza da Informação</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-years">2021 – 2023</div>
+          <h3>Desenvolvimento de Sistemas</h3>
+          <p>ETEC Rio Grande da Serra</p>
+          <p class="timeline-courses">Disciplinas: Banco de Dados, SQL, Python, Front-end, Segurança Digital</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -431,30 +383,10 @@
     </div>
   </section>
 
-  <!-- ================= FORMAÇÃO ================= -->
-  <section class="section reveal" id="formacao">
-    <div class="wrap">
-      <p class="eyebrow">05 · Formação</p>
-      <h2>Formação acadêmica</h2>
-      <div class="timeline">
-        <div class="timeline-item current">
-          <div class="timeline-years">2024 – 2028 · em andamento</div>
-          <h3>Bacharelado em Ciência e Tecnologia</h3>
-          <p>UFABC — Universidade Federal do ABC</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-years">2021 – 2023</div>
-          <h3>Desenvolvimento de Sistemas</h3>
-          <p>ETEC Rio Grande da Serra</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= CONTATO ================= -->
   <section class="section" id="contato">
     <div class="wrap">
-      <p class="eyebrow" style="justify-content:center">06 · Contato</p>
+      <p class="eyebrow" style="justify-content:center">05 · Contato</p>
       <h2>Vamos conversar</h2>
       <p class="lede">Estou em busca de oportunidades de estágio em Dados, Engenharia de Dados ou Análise de Dados. Se meu perfil combina com sua equipe, entre em contato.</p>
       <div class="cta-row">
@@ -471,7 +403,6 @@
 <footer class="site-footer">
   <div class="wrap">
     <span>© <span id="year"></span> Gabriel França da Silva</span>
-    <span>Feito com HTML, CSS e JS — sem frameworks.</span>
   </div>
 </footer>
 
@@ -498,6 +429,10 @@
                 essa imagem também aparece na seção "Projeto em Destaque".
    - link     : URL do repositório no GitHub (ideal), ou de onde o
                 projeto pode ser visto
+   - demo     : opcional. URL de uma versão hospedada/ao vivo do
+                projeto (ex: dashboard no Render). Se preenchido,
+                aparece um segundo link "Ver dashboard" no card.
+                Use null se não tiver.
    - featured : true para também destacar na seção "Projeto em
                 Destaque" no topo (use com moderação, normalmente false)
    - status   : opcional. Ex: 'Em desenvolvimento' — aparece como
@@ -512,6 +447,7 @@
      desc: 'Descrição curta do que o projeto faz e qual problema resolve.',
      image: null,
      link: 'https://github.com/TayschreN/novo-projeto',
+     demo: null,
      featured: false,
      status: null
    }
@@ -527,15 +463,112 @@ const CATEGORIES = {
 
 const PROJECTS = [
   {
-    id: 'f1-pipeline',
-    title: 'F1 Data Pipeline & Performance Predictor',
-    category: 'engenharia',
-    tools: ['FastF1', 'Ergast API', 'PySpark', 'DuckDB', 'Airflow', 'Docker', 'scikit-learn', 'XGBoost'],
-    desc: 'Pipeline ponta a ponta que ingere telemetria e resultados históricos de F1, processa com PySpark, armazena em DuckDB e treina um modelo para prever posições de corrida — orquestrado com Airflow e containerizado com Docker.',
-    image: null,
-    link: 'https://github.com/TayschreN',
+    id: 'selecao-dashboard',
+    title: 'Seleção Brasileira — Painel Histórico de Dados (1914–2026)',
+    category: 'ml',
+    tools: ['Python', 'Pandas', 'Dash', 'Plotly'],
+    desc: 'Dashboard interativo com 1.063 jogos oficiais e amistosos da Seleção Brasileira desde 1914, com 5 abas (visão geral, competições, adversários, artilheiros e forma recente) e identidade visual própria inspirada no CBF.',
+    image: 'https://raw.githubusercontent.com/TayschreN/selecao-dashboard/main/data/tela1.png',
+    link: 'https://github.com/TayschreN/selecao-dashboard',
+    demo: 'https://selecao-dashboard.onrender.com/',
     featured: false,
-    status: 'null'
+    status: null
+  },
+  {
+    id: 'f1-analytics-dashboard',
+    title: 'F1 Analytics — 75 Anos de Fórmula 1 em Dados',
+    category: 'engenharia',
+    tools: ['Python', 'Pandas', 'ETL', 'Parquet', 'Dash', 'Plotly'],
+    desc: 'Pipeline de dados + EDA + dashboard interativo sobre toda a história da F1 (1950–2024): 1.125 corridas, 861 pilotos e 174 construtores, com decisões de engenharia documentadas para garantir a qualidade dos números.',
+    image: 'https://raw.githubusercontent.com/TayschreN/f1-dashboard/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/f1-dashboard',
+    demo: 'https://f1-dashboard-zcvw.onrender.com',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'lol-challenger-analytics',
+    title: 'LoL Challenger Analytics — Data Lake BR',
+    category: 'engenharia',
+    tools: ['Python', 'Riot Games API', 'dbt', 'DuckDB', 'Dash', 'Plotly'],
+    desc: 'Pipeline que coleta partidas do Challenger brasileiro via Riot Games API, processa em camadas Bronze/Silver/Gold com dbt + DuckDB (com testes de qualidade automatizados) e entrega tier list e comparador de campeões em um dashboard interativo.',
+    image: 'https://raw.githubusercontent.com/TayschreN/lolchallengeranalytics/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/lolchallengeranalytics',
+    demo: 'https://lolchallengeranalytics.onrender.com/',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'nba-eda-dashboard',
+    title: 'EDA — NBA Regular Season (2010–2024)',
+    category: 'ml',
+    tools: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
+    desc: 'Análise exploratória de 14 temporadas e mais de 33 mil linhas time-por-jogo da NBA, orientada a 10 perguntas de negócio — incluindo o efeito de back-to-backs e a "revolução das bolas de 3".',
+    image: 'https://raw.githubusercontent.com/TayschreN/nba-dashboard/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/nba-dashboard',
+    demo: 'https://nba-dashboard-ocmc.onrender.com',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'brasileirao-eda-dash',
+    title: 'EDA — Campeonato Brasileiro (2003–2024)',
+    category: 'ml',
+    tools: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
+    desc: 'Análise exploratória de 21 anos e 8.785 partidas do Brasileirão, orientada a perguntas de negócio, com insights sobre vantagem de jogar em casa, concentração histórica de poder entre clubes e evolução de gols por partida.',
+    image: 'https://raw.githubusercontent.com/TayschreN/brasileirao-eda-dash/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/brasileirao-eda-dash',
+    demo: 'https://brasileirao-eda-dash.onrender.com',
+    featured: false,
+    status: null
+  },
+  {
+    id: 'beatles-dashboard',
+    title: 'Discografia dos Beatles — Dashboard',
+    category: 'ml',
+    tools: ['Python', 'Dash', 'Plotly', 'Pandas'],
+    desc: 'Dashboard interativo (Dash + Plotly) a partir da EDA da discografia completa dos Beatles (310 faixas, 1958–1980), com filtros cruzados, KPIs dinâmicos e 8 gráficos que reagem em tempo real.',
+    image: 'https://raw.githubusercontent.com/TayschreN/beatles-dashboard/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/beatles-dashboard',
+    demo: null,
+    featured: false,
+    status: null
+  },
+  {
+    id: 'mercado-livre-dashboard',
+    title: 'Mercado Livre — Dashboard',
+    category: 'ml',
+    tools: ['Python', 'Dash', 'Pandas'],
+    desc: 'Análise exploratória com dataset simulado do Mercado Livre, apresentada em um dashboard interativo construído com Dash.',
+    image: 'https://raw.githubusercontent.com/TayschreN/ml-dashboard/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/ml-dashboard',
+    demo: null,
+    featured: false,
+    status: null
+  },
+  {
+    id: 'spotify-genre-analytics',
+    title: 'Spotify — Análise de Gêneros Musicais',
+    category: 'ml',
+    tools: ['Python', 'Dash', 'Pandas', 'Machine Learning'],
+    desc: 'Exploração de dados e machine learning em busca de insights sobre a indústria da música, apresentados em um dashboard construído com Dash.',
+    image: 'https://raw.githubusercontent.com/TayschreN/spotify-genre-analytics/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/spotify-genre-analytics',
+    demo: null,
+    featured: false,
+    status: null
+  },
+  {
+    id: 'movies-dashboard',
+    title: 'Sistema de Recomendação de Filmes',
+    category: 'ml',
+    tools: ['Python', 'Pandas', 'Machine Learning'],
+    desc: 'Projeto de análise exploratória e machine learning para recomendar filmes ao usuário, com insights sobre a indústria cinematográfica.',
+    image: 'https://raw.githubusercontent.com/TayschreN/movies-dashboard/main/imagens/tela1.png',
+    link: 'https://github.com/TayschreN/movies-dashboard',
+    demo: null,
+    featured: false,
+    status: null
   },
 
   {
@@ -762,7 +795,9 @@ const PROJECTS = [
    - title  : nome do curso/certificação
    - issuer : instituição ou instrutor
    - hours  : carga horária, ex: '24h' — use null se não tiver
-   - date   : mês/ano de emissão, ex: 'Mar 2026'
+   - date   : mês/ano de emissão, ex: 'Mar 2026'. Use null para
+              itens sem data (ex: um livro) — nesse caso aparece
+              "Leitura complementar" no lugar da data.
 
    INÍCIO MODELO
    { title: 'Nome do curso', issuer: 'Instituição', hours: '10h', date: 'Mar 2026' }
@@ -770,6 +805,7 @@ const PROJECTS = [
    ================================================================ */
 
 const CERTIFICATIONS = [
+  { title: 'Fundamentos de Data Science e Inteligência Artificial', issuer: 'Data Science Academy', hours: '24h', date: 'Jul 2026' },
   { title: 'The Complete Python Bootcamp', issuer: 'Udemy', hours: '22h', date: 'Fev 2026' },
   { title: 'Microsoft Power BI Para Business Intelligence e Data Science', issuer: 'Data Science Academy', hours: '72h', date: 'Fev 2026' },
   { title: 'Fundamentos de Engenharia de Dados', issuer: 'Data Science Academy', hours: '24h', date: 'Jan 2026' },
@@ -782,7 +818,8 @@ const CERTIFICATIONS = [
   { title: 'Excel for Data Analytics', issuer: 'Luke Barousse', hours: '11h', date: 'Nov 2025' },
   { title: 'Power BI for Data Analytics', issuer: 'Luke Barousse', hours: '8h', date: 'Nov 2025' },
   { title: 'Data Analysis with Python', issuer: 'freeCodeCamp', hours: '9h', date: 'Nov 2025' },
-  { title: "CS50's Introduction to Programming with Python", issuer: 'Harvard University (CS50)', hours: '16h', date: 'Nov 2025' }
+  { title: "CS50's Introduction to Programming with Python", issuer: 'Harvard University (CS50)', hours: '16h', date: 'Nov 2025' },
+  { title: 'Storytelling com Dados', issuer: 'Cole Nussbaumer Knaflic (livro)', hours: null, date: null }
 ];
 
 /* ---------------- Rendering ---------------- */
@@ -792,6 +829,7 @@ function cardHTML(p){
   const statusTag = p.status ? `<span class="card-status">${p.status}</span>` : '';
   const media = p.image ? `<div class="card-media"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>` : '';
   const chips = p.tools.map(t => `<span class="chip">${t}</span>`).join('');
+  const demoLink = p.demo ? `<a class="card-link card-link-demo" href="${p.demo}" target="_blank" rel="noopener">Ver dashboard ↗</a>` : '';
   return `
     <article class="card">
       ${media}
@@ -801,7 +839,10 @@ function cardHTML(p){
         <h3>${p.title}</h3>
         <p class="desc">${p.desc}</p>
         <div class="chips">${chips}</div>
-        <a class="card-link" href="${p.link}" target="_blank" rel="noopener">Ver projeto ↗</a>
+        <div class="card-links">
+          <a class="card-link" href="${p.link}" target="_blank" rel="noopener">Ver projeto ↗</a>
+          ${demoLink}
+        </div>
       </div>
     </article>
   `;
@@ -809,13 +850,14 @@ function cardHTML(p){
 
 function certHTML(c){
   const hours = c.hours ? ` <span class="cert-hours">· ${c.hours}</span>` : '';
+  const dateText = c.date ? c.date : 'Leitura complementar';
   return `
     <li class="cert-row">
       <div class="cert-main">
         <span class="cert-title">${c.title}${hours}</span>
         <span class="cert-issuer">${c.issuer}</span>
       </div>
-      <span class="cert-date">${c.date}</span>
+      <span class="cert-date">${dateText}</span>
     </li>
   `;
 }
@@ -854,14 +896,6 @@ function renderCertifications(){
   document.getElementById('certList').innerHTML = CERTIFICATIONS.map(certHTML).join('');
 }
 
-function renderFeaturedMedia(){
-  const slot = document.getElementById('featureMediaSlot');
-  const featured = PROJECTS.find(p => p.featured);
-  if(featured && featured.image){
-    slot.innerHTML = `<div class="feature-media"><img src="${featured.image}" alt="${featured.title}" loading="lazy"></div>`;
-  }
-}
-
 function init(){
   document.getElementById('statProjects').textContent = PROJECTS.length;
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -869,7 +903,6 @@ function init(){
   renderFilters();
   renderGrid('all');
   renderCertifications();
-  renderFeaturedMedia();
 
   const toggle = document.getElementById('menuToggle');
   const header = document.getElementById('site-header');

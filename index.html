@@ -903,37 +903,47 @@ function renderCertifications(){
 }
 
 function init(){
-  document.getElementById('statProjects').textContent = PROJECTS.length;
-  document.getElementById('year').textContent = new Date().getFullYear();
+  try {
+    document.getElementById('statProjects').textContent = PROJECTS.length;
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  renderFilters();
-  renderGrid('all');
-  renderCertifications();
+    renderFilters();
+    renderGrid('all');
+    renderCertifications();
 
-  const toggle = document.getElementById('menuToggle');
-  const header = document.getElementById('site-header');
-  toggle.addEventListener('click', () => {
-    const isOpen = header.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      header.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+    const toggle = document.getElementById('menuToggle');
+    const header = document.getElementById('site-header');
+    toggle.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
     });
-  });
-
-  if('IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        header.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
       });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
+    });
+  } catch(e) {
+    console.warn('Erro no init:', e);
+  }
+
+  try {
+    const revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+      revealEls.forEach(el => io.observe(el));
+      setTimeout(() => revealEls.forEach(el => el.classList.add('in-view')), 3000);
+    } else {
+      revealEls.forEach(el => el.classList.add('in-view'));
+    }
+  } catch(e) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
   }
 }

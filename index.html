@@ -184,8 +184,6 @@
   }
   .cert-main{ display:flex; flex-direction:column; gap:3px; }
   .cert-title{ font-size:.94rem; font-weight:500; }
-  a.cert-title{ color:inherit; border-bottom:1px solid transparent; transition:border-color .15s ease; }
-  a.cert-title:hover{ border-color:var(--text); }
   .cert-hours{ color:var(--text-faint); font-weight:400; }
   .cert-issuer{ color:var(--text-dim); font-size:.84rem; }
   .cert-date{ font-family:var(--mono); font-size:.76rem; color:var(--text-faint); white-space:nowrap; }
@@ -808,7 +806,6 @@ const PROJECTS = [
    ================================================================ */
 
 const CERTIFICATIONS = [
-  { title: 'Estatística Aplicada com Python', issuer: 'Data Science Academy', hours: '4h', date: 'Jul 2026', link: 'imagens/estatistica_certificado.pdf' },
   { title: 'AWS Cloud Practitioner Essentials', issuer: 'Amazon Web Services (AWS)', hours: '14h', date: 'Jul 2026' },
   { title: 'Project Management & Agile Fundamentals', issuer: 'Santander Open Academy', hours: '8h', date: 'Jul 2026' },
   { title: 'Fundamentos de Linguagem Python do Básico a Aplicações de IA', issuer: 'Data Science Academy', hours: '96h', date: 'Jul 2026' },
@@ -860,13 +857,10 @@ function cardHTML(p){
 function certHTML(c){
   const hours = c.hours ? ` <span class="cert-hours">· ${c.hours}</span>` : '';
   const dateText = c.date ? c.date : 'Leitura complementar';
-  const titleTag = c.link
-    ? `<a class="cert-title" href="${c.link}" target="_blank" rel="noopener">${c.title}</a>`
-    : `<span class="cert-title">${c.title}</span>`;
   return `
     <li class="cert-row">
       <div class="cert-main">
-        ${titleTag}${hours}
+        <span class="cert-title">${c.title}${hours}</span>
         <span class="cert-issuer">${c.issuer}</span>
       </div>
       <span class="cert-date">${dateText}</span>

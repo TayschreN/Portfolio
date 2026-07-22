@@ -46,7 +46,7 @@ frameworks e sem etapa de build.
 ```
 ├── index.html                            # site inteiro: markup, estilos e script
 ├── imagens/                              # screenshots do site
-├── curriculo-gabriel-franca-silva.pdf    # currículo em PDF
+├── curriculo-gabriel-franca-silva-ats.pdf    # currículo em PDF
 └── README.md
 ```
 

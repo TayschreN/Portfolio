@@ -4,71 +4,73 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![No Frameworks](https://img.shields.io/badge/frameworks-none-2451CC?style=flat)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222?style=flat&logo=githubpages&logoColor=white)
 
-Portfólio pessoal de **Gabriel França da Silva** — estudante de Ciência e Tecnologia (UFABC),
-em transição de análise de dados para engenharia de dados.
+Portfólio pessoal de **Gabriel França da Silva** — estudante de Ciência e Tecnologia (UFABC) em transição de análise de dados para engenharia de dados.
 
-**[→ Ver o site ao vivo](https://tayschren.github.io/Portfolio/)**
+**[→ Ver site ao vivo](https://tayschren.github.io/Portfolio/)**
 
-![Dashboard](imagens/tela1.png)
-![Dashboard](imagens/tela2.png)
-![Dashboard](imagens/tela3.png)
-![Dashboard](imagens/tela4.png)
+| Hero | Projetos |
+|---|---|
+| ![Hero](imagens/tela1.png) | ![Projetos](imagens/tela2.png) |
+
+| Sobre | Formação |
+|---|---|
+| ![Sobre](imagens/tela3.png) | ![Formação](imagens/tela4.png) |
 
 ## Sobre
 
-Este repositório reúne meus projetos de análise, ciência e engenharia de dados, além de
-certificações, formação acadêmica e currículo — tudo em um único site estático, sem
-frameworks e sem etapa de build.
+Catálogo dos meus projetos de dados — engenharia, análise, dashboards e SQL — com certificações, formação acadêmica e currículo. Tudo em um único HTML estático, sem frameworks e sem build.
 
 ## Funcionalidades
 
-- 📂 Catálogo de projetos filtrável por categoria (Engenharia de Dados, Python/EDA/ML, SQL, BI & Dashboards)
-- 🖼️ Miniaturas e links diretos para repositórios no GitHub e dashboards publicados
-- 🎓 Seção de certificações e cursos, e timeline de formação acadêmica
-- 📄 Currículo em PDF disponível para download direto no site
-- ♿ Acessível: skip link, foco visível, respeita `prefers-reduced-motion`
-- 📱 Totalmente responsivo
+- **Catálogo filtrável** — projetos organizados em 4 categorias: Engenharia de Dados, Python/EDA/ML, SQL, BI & Dashboards
+- **Links diretos** — cada card aponta para o repositório no GitHub e para o dashboard publicado (quando disponível)
+- **Seções complementares** — certificações com carga horária, timeline acadêmica e contato
+- **Currículo em PDF** — download direto no header e no rodapé
+- **Acessível** — skip link, foco visível, respeita `prefers-reduced-motion`
+- **Responsivo** — adapta-se de mobile a desktop sem media queries complexas
 
 ## Stack
 
-- **HTML5** semântico
-- **CSS3** — variáveis nativas, Grid e Flexbox, sem pré-processador
-- **JavaScript** vanilla (ES6+) — projetos e certificações renderizados dinamicamente via template literals
-- **Google Fonts** (Inter, IBM Plex Mono)
-- Hospedado com **GitHub Pages**
+| Camada | Tecnologia |
+|---|---|
+| Marcação | HTML5 semântico |
+| Estilo | CSS3 (variáveis nativas, Grid, Flexbox) |
+| Lógica | JavaScript vanilla (ES6+) |
+| Fontes | Inter + IBM Plex Mono (Google Fonts) |
+| Hospedagem | GitHub Pages |
 
 ## Estrutura
 
 ```
-├── index.html                            # site inteiro: markup, estilos e script
-├── curriculo-gabriel-franca-silva.pdf     # currículo em PDF
+├── index.html                            # markup, estilos e script (arquivo único)
+├── imagens/                              # screenshots do site
+│   ├── tela1.png
+│   ├── tela2.png
+│   ├── tela3.png
+│   └── tela4.png
+├── curriculo-gabriel-franca-silva.pdf
 └── README.md
 ```
 
-## Rodando localmente
-
-Sem dependências, sem instalação, sem build:
+## Rodar localmente
 
 ```bash
 git clone https://github.com/TayschreN/Portfolio.git
 cd Portfolio
-open index.html   # ou apenas dê duplo clique no arquivo
+start index.html   # Windows ·双击/double-click no arquivo
 ```
 
-## Arquitetura de dados
+## Arquitetura
 
-Projetos e certificações vivem em dois arrays JavaScript (`PROJECTS` e `CERTIFICATIONS`)
-declarados no início da tag `<script>` de `index.html`. A interface (cards, filtros,
-contadores) é toda gerada a partir deles — adicionar, remover ou reordenar conteúdo não
-exige tocar em HTML ou CSS. O formato esperado de cada campo está documentado em
-comentários logo acima de cada array, no próprio código-fonte.
+Projetos e certificações são declarados em dois arrays JavaScript (`PROJECTS` e `CERTIFICATIONS`) no início da tag `<script>`. A interface (cards, filtros, contadores) é renderizada dinamicamente a partir desses dados — adicionar, remover ou reordenar conteúdo não exige alterar HTML ou CSS. O esquema de cada campo está documentado em comentários no código-fonte.
 
 ## Contato
 
-- LinkedIn: [linkedin.com/in/gabrielfranca123](https://www.linkedin.com/in/gabrielfranca123/)
-- GitHub: [github.com/TayschreN](https://github.com/TayschreN)
-- Email: gabriel.fsilva26609@gmail.com
+- **LinkedIn**: [linkedin.com/in/gabrielfranca123](https://www.linkedin.com/in/gabrielfranca123/)
+- **GitHub**: [github.com/TayschreN](https://github.com/TayschreN)
+- **Email**: [gabriel.fsilva26609@gmail.com](mailto:gabriel.fsilva26609@gmail.com)
 
 ---
 
